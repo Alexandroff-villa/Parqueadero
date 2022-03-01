@@ -11,8 +11,9 @@ conexion = mysql.connector.connect(
 try:
     with conexion:
         with conexion.cursor() as cursor:
-            consulta = "SELECT * FROM parqueadero"
-            cursor.execute(consulta)
+            consulta = "SELECT * FROM parqueadero WHERE id = %s"
+            id = input("Proporcione el id_carro: ")
+            cursor.execute(consulta,(id,))
             registros = cursor.fetchall()
             print(registros)
 
