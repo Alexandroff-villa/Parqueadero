@@ -11,13 +11,9 @@ conexion = mysql.connector.connect(
 try:
     with conexion:
         with conexion.cursor() as cursor:
-            sentencia = 'INSERT INTO parqueadero(placa,marca,color,fecha) VALUES (%s, %s, %s, %s);'
-            valores = (
-                ("EEE-123","Nissan","fuccia","01/03/2022"),
-                ("FFF-123","Hiunday","rojo","01/03/2022"),
-                ("GGG-123","Wolsvaguen","negro","01/03/2022")
-                )
-            cursor.executemany(sentencia, valores)
+            sentencia = 'UPDATE parqueadero SET marca=%s WHERE id=%s'
+            valores = ("Toyota", 5)
+            cursor.execute(sentencia, valores)
             conexion.commit()
             registros_insertados = cursor.rowcount
             print(f'Registros insertados: {registros_insertados}')
