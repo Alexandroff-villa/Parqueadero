@@ -11,11 +11,14 @@ conexion = mysql.connector.connect(
 try:
     with conexion:
         with conexion.cursor() as cursor:
-            consulta = "SELECT * FROM parqueadero WHERE id = %s"
-            id = input("Proporcione el id_carro: ")
-            cursor.execute(consulta,(id,))
+            consulta = "SELECT * FROM parqueadero WHERE id IN (%s)"
+            entrada = input("Proporcione los id's a buscar (separado por comas): ").split(",")
+            llaves_primarias = ','.join(list(map(lambda arg: "'%s'" % arg, entrada)))
+            consulta = consulta % llaves_primarias
+            cursor.execute(consulta)
             registros = cursor.fetchall()
-            print(registros)
+            for registro in registros:
+                print(registro)
 
 except Exception as e:
     print(f'Ocurrio un error: {e}')
