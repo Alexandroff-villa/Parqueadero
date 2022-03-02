@@ -1,24 +1,44 @@
-import mysql.connector
+from logger import log
+import mysql.connector as bd
+import sys
 
-conexion = mysql.connector.connect(
-    host = '127.0.0.1',
-    user = 'root',
-    password = "23deAbril",
-    database = "tienda"
-)
+class Conexion:
+    _DATABASE = 'tienda'
+    _USERNAME = 'root'
+    _PASSWORD = '23deAbril'
+    _HOST = '127.0.0.1'
+    _conexion = None
+    _cursor = None
 
+    @classmethod
+    def obtenerConexion(cls):
+        if cls._conexion is None:
+            try:
+                cls._conexion = bd.connect(host=cls._HOST,
+                                          user = cls._USERNAME,
+                                          database = cls._DATABASE,
+                                          password = cls._PASSWORD)
+                log.debug(f'conexion existosa: {cls._conexion}')
+                return cls._conexion
+            except Exception as e:
+                log.debug(f'Ocurrio una excepcion al obtener la conexion {e}')
+                sys.exit()
+        else:
+            return cls._conexion
 
-try:
-    with conexion:
-        with conexion.cursor() as cursor:
-            sentencia = 'UPDATE parqueadero SET marca=%s WHERE id=%s'
-            valores = ("Toyota", 5)
-            cursor.execute(sentencia, valores)
-            conexion.commit()
-            registros_insertados = cursor.rowcount
-            print(f'Registros insertados: {registros_insertados}')
+    @classmethod
+    def obtenerCursor(cls):
+        if cls._cursor is None:
+            try:
+                cls._cursor = cls.obtenerConexion().cursor()
+                log.debug(f'se abrio correctamente el cursor: {cls._cursor}')
+                return cls._cursor
+            except Exception as e:
+                log.error(f'Ocurrio una excepcion al obtener el cursor: {e}')
+                sys.exit()
+        else:
+            return cls._cursor
 
-except Exception as e:
-    print(f'Ocurrio un error: {e}')
-finally:
-    conexion.close()
+if __name__=='__main__':
+    Conexion.obtenerConexion()
+    Conexion.obtenerCursor()
