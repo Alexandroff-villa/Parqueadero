@@ -5,7 +5,7 @@ import sys
 class Conexion:
     _DATABASE = 'tienda'
     _USERNAME = 'root'
-    _PASSWORD = '23deAbril'
+    _PASSWORD = '********'
     _HOST = '127.0.0.1'
     _CURSORCLASS = pymysql.cursors.DictCursor
     _conexion = None
