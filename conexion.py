@@ -7,6 +7,7 @@ class Conexion:
     _USERNAME = 'root'
     _PASSWORD = '23deAbril'
     _HOST = '127.0.0.1'
+    _CURSORCLASS = pymysql.cursors.DictCursor
     _conexion = None
     _cursor = None
 
@@ -17,7 +18,8 @@ class Conexion:
                 cls._conexion = pymysql.connect(host=cls._HOST,
                                           user = cls._USERNAME,
                                           database = cls._DATABASE,
-                                          password = cls._PASSWORD)
+                                          password = cls._PASSWORD,
+                                          cursorclass = cls._CURSORCLASS)
                 log.debug(f'conexion existosa: {cls._conexion}')
                 return cls._conexion
             except Exception as e:
