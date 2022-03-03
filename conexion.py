@@ -1,5 +1,5 @@
 from logger import log
-import mysql.connector as bd
+import pymysql.cursors
 import sys
 
 class Conexion:
@@ -14,7 +14,7 @@ class Conexion:
     def obtenerConexion(cls):
         if cls._conexion is None:
             try:
-                cls._conexion = bd.connect(host=cls._HOST,
+                cls._conexion = pymysql.connect(host=cls._HOST,
                                           user = cls._USERNAME,
                                           database = cls._DATABASE,
                                           password = cls._PASSWORD)
