@@ -15,7 +15,7 @@ class UsuarioDAO:
             self.conexion = mysql.connector.connect(
                 host = "localhost",
                 user = "root",
-                password = "23deAbril",
+                password = "******",
                 port = 3306,
                 db = "tienda"
                 )
