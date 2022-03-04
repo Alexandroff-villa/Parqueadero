@@ -1,8 +1,9 @@
 print("-------BIENVENIDO AL PARQUEDERO-------")
-
+from auto_DAO import UsuarioDAO
+from funciones import Registrar, Ver_registro
 import datetime
-ddatos = {}
-num_carro = 0
+
+from usuario import Usuario
 opc = ""
 
 while opc != "s":
@@ -15,33 +16,20 @@ while opc != "s":
 
     if (opc == 'a'):
         print("-------ESCOGISTE INICIAR SERVICIO------")
-        mat=input("Ingrese el numero de su matricula: ")
-        if num_carro != 0:
-            for i in range(num_carro):
-                if mat == ddatos[i]["matricula"]:
-                    print("su auto es recurrente")
-                    fecha = datetime.datetime.now()
-                    ddatos[num_carro]={"matricula":mat,"placa":pl,"marca":marca,"color":color,"fecha":fecha}
-                    num_carro +=1
-        else:            
-            pl = input("Ingrese el numero de su placa: ")
-            marca = input("Ingrese la marca de su vehiculo: ")
-            color = input("Ingrese el color de su vehiculo: ")
-            fecha = datetime.datetime.now()
-            ddatos[num_carro]={"matricula":mat,"placa":pl,"marca":marca,"color":color,"fecha":fecha}
-            num_carro +=1
+        pl = input("Ingrese el numero de su placa: ")
+        marca = input("Ingrese la marca de su vehiculo: ")
+        color = input("Ingrese el color de su vehiculo: ")
+        fecha = datetime.datetime.now()
+        usuario = Usuario(placa=pl,marca=marca,color=color,fecha=fecha)
+        Registrar(usuario)
+        
 
     elif (opc == 'b'):
-        print("-------VER REGISTROS------")
-        for k in ddatos.keys():
-            print("mat:",ddatos[k]["matricula"])
-            print("marca:",ddatos[k]["marca"])
-            print("pl:",ddatos[k]["placa"])
-            print("color:",ddatos[k]["color"])
-            print(str(fecha))
+            Ver_registro()
 
     elif (opc == "d"):
-        print("------ESCOGISTE FINALIZAR EL SERVICIO------")
+            print("------ESCOGISTE FINALIZAR EL SERVICIO------")        
 
-    else:
+
+    elif (opc == "s"):
         break
