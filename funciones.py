@@ -17,5 +17,4 @@ def Registrar(usuario):
 
 def Ver_registro():
     usuarios = UsuarioDAO().seleccionar()
-    for usuario in usuarios:
-        log.debug(usuario)
+    log.debug(usuarios[-1])
